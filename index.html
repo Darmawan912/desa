@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Form Surat</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      max-width: 500px;
+      margin: auto;
+    }
+    h2 {
+      text-align: center;
+      font-size: 28px;
+    }
+    label {
+      display: block;
+      margin-top: 20px;
+      font-size: 18px;
+    }
+    input, select {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      margin-top: 8px;
+      box-sizing: border-box;
+    }
+    button {
+      margin-top: 30px;
+      width: 100%;
+      padding: 14px;
+      font-size: 18px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 6px;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <h2>Form Surat</h2>
+
+  <label for="nama">Nama</label>
+  <input id="nama" placeholder="Masukkan Nama">
+
+  <label for="nik">NIK</label>
+  <input id="nik" placeholder="Masukkan NIK">
+
+  <label for="pekerjaan">Pekerjaan</label>
+  <input id="pekerjaan" placeholder="Masukkan Pekerjaan">
+
+  <label for="jenis">Jenis Surat</label>
+  <select id="jenis">
+    <option value="Domisili">Surat Domisili</option>
+    <option value="Usaha">Surat Keterangan Usaha</option>  
+    <option value="Penghantar">Surat Keterangan Penghantar</option> 	 
+	 
+	
+  </select>
+  
+
+  <button onclick="kirim()">Kirim</button>
+
+  <script>
+    function kirim() {
+      const nama = document.getElementById("nama").value;
+      const nik = document.getElementById("nik").value;
+      const pekerjaan = document.getElementById("pekerjaan").value;
+      const jenis = document.getElementById("jenis").value;
+
+      // Simpan ke localStorage (opsional, bisa untuk daftar nanti)
+      const data = JSON.parse(localStorage.getItem("surat") || "[]");
+      data.push({ nama, nik, pekerjaan, jenis, status: "Menunggu" });
+      localStorage.setItem("surat", JSON.stringify(data));
+
+      // Arahkan ke halaman cetak dengan parameter lengkap
+      const url = `Surat.html?nama=${encodeURIComponent(nama)}&nik=${encodeURIComponent(nik)}&pekerjaan=${encodeURIComponent(pekerjaan)}&jenis=${encodeURIComponent(jenis)}`;
+      window.location.href = url;
+    }
+  </script>
+</body>
+</html>
+
